@@ -679,6 +679,14 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				hair_overlay.icon = hair_file
 				hair_overlay.icon_state = hair_state
 
+				if("[HAIR_LAYER]" in offset_clothing)
+					var/icon/species_clothing_icon = GLOB.species_clothing_icons[id]["[hair_file]-[hair_state]"]
+					if(!species_clothing_icon) 	//Create standing/laying icons if they don't exist
+						generate_species_offsets(hair_file, hair_state, HAIR_LAYER, src)
+						hair_overlay.icon = GLOB.species_clothing_icons[id]["[hair_file]-[hair_state]"]
+					else
+						hair_overlay.icon = species_clothing_icon
+
 				if(!forced_colour)
 					if(hair_color)
 						if(hair_color == "mutcolor")
